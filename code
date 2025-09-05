@@ -1,0 +1,131 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner dc = new Scanner(System.in);
+        Random random = new Random();
+        int OTP = random.nextInt(9999-1000+1) + 1000;
+
+        String UserName = "";
+        String FirstGmail = "";
+        String Password = "";
+
+        char choice;  
+
+        do {
+            System.out.printf("Welcome User!%n");
+            System.out.printf("Do you want to Sign up or Login (S for Sign up and L for Login): ");
+            System.out.printf("E or e for exit%n");
+            choice = dc.next().charAt(0);
+
+            dc.nextLine();
+
+            switch (choice) 
+            {
+                case 'S':
+                case 's':
+                    System.out.printf("Enter your user name: ");
+                    UserName = dc.nextLine();
+
+                    System.out.printf("Enter your Gmail: ");
+                    FirstGmail = dc.nextLine();
+
+                    System.out.printf("Enter your password: ");
+                    Password = dc.nextLine();
+
+                    System.out.printf("Your OTP is: " + OTP + "%n");
+
+                    System.out.printf("Confirm your OTP: ");
+                    int ConfirmOTP = dc.nextInt();
+
+                    if (ConfirmOTP == OTP) 
+                    {
+                        System.out.printf("Sign Up successful, welcome " + UserName + "!");
+                    } 
+                    else 
+                    {
+                        do 
+                        {
+                            System.out.printf("Invalid OTP, re-enter OTP: ");
+                            ConfirmOTP = dc.nextInt();
+                        } while (ConfirmOTP != OTP);
+                    }
+
+                    break;
+
+                case 'L':
+                case 'l':
+                    System.out.printf("Enter your username: ");
+                    String ConfirmUser = dc.nextLine();
+
+                    if (ConfirmUser.equals(UserName)) 
+                    {
+                        System.out.printf("Enter your Gmail: %n");
+                        String gmail = dc.nextLine();
+
+                        if (gmail.contains("@") && gmail.equals(FirstGmail)) 
+                        {
+                            System.out.printf("Please confirm  the given Gmail: ");
+                            String confirmation = dc.nextLine();
+
+                            if (confirmation.contains("@") && confirmation.equals(gmail)) 
+                            {
+                                System.out.printf("Please enter your password: ");
+                                String confirmPass = dc.nextLine();
+                                
+                                if(confirmPass.equals(Password))
+                                {
+                                    System.out.printf("Welcome back " + UserName + "!");
+                                }
+                                else 
+                                {
+                                    do 
+                                    {
+                                        System.out.printf("Enter a valid password: ");
+                                    }while(!confirmPass.equals(Password));
+                                }
+                            } 
+                            else 
+                            {
+                                System.out.println("Make sure to re-enter your Gmail correctly again");
+
+                                do 
+                                {
+                                    System.out.printf("Please re-enter the Gmail: ");
+                                    confirmation = dc.nextLine();
+                                } while (!confirmation.equals(gmail));
+                            }
+                        } 
+                        else 
+                        {
+                            System.out.printf("Re-enter a valid Gmail%n");
+                            do 
+                            {
+                                System.out.printf("Enter your Gmail: %n");
+                                gmail = dc.nextLine();
+                            } while (!gmail.contains("@"));
+                        }
+                    } 
+                    else 
+                    {
+                        do 
+                        {
+                            System.out.printf("Re-enter your Username: ");
+                            ConfirmUser = dc.nextLine();
+                        } while (!ConfirmUser.equals(UserName));
+                    }
+                    break;
+
+                case 'e':
+                case 'E':
+                    System.out.printf("Exiting System%nExit successful");
+                    break;
+
+                default:
+                    System.out.printf("Not a valid option%n");
+                    break;
+            }
+        } while (choice != 'e' && choice != 'E');
+    }
+}
